@@ -1,0 +1,57 @@
+<template>
+  <div>
+    <p>子路由 3</p>
+
+    <vhb-table
+      border
+      show-overflow
+      ref="xTable"
+      height="400"
+      :loading="loading">
+      <vhb-column type="checkbox" width="60"></vhb-column>
+      <vhb-column field="name" title="Name"></vhb-column>
+      <vhb-column field="sex" title="Sex"></vhb-column>
+      <vhb-column field="age" title="Age"></vhb-column>
+      <vhb-column field="num" title="Num"></vhb-column>
+      <vhb-column field="num2" title="Num2"></vhb-column>
+      <vhb-column field="rate" title="Rate"></vhb-column>
+    </vhb-table>
+  </div>
+</template>
+
+<script>
+export default {
+  data () {
+    return {
+      loading: false
+    }
+  },
+  created () {
+    this.loading = true
+    setTimeout(() => {
+      const $table = this.$refs.xTable
+      if ($table) {
+        $table.loadData(this.mockList(600))
+      }
+      this.loading = false
+    }, 300)
+  },
+  methods: {
+    mockList (size) {
+      const list = []
+      for (let index = 0; index < size; index++) {
+        list.push({
+          name: `名称${index}`,
+          sex: '0',
+          num: 123,
+          age: 18,
+          num2: 234,
+          rate: 3,
+          address: 'shenzhen'
+        })
+      }
+      return list
+    }
+  }
+}
+</script>

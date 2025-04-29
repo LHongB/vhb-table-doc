@@ -1,0 +1,802 @@
+<template>
+  <div>
+    <h2>{{ $t('app.aside.nav.form') }}</h2>
+    <p class="tip">
+      表单，查看 <router-link class="link" :to="{name: 'VHBAPI', params: {name: 'form'}}">API</router-link>，可以通过 <router-link class="link" :to="{name: 'StartGlobal'}">setup</router-link> 设置全局参数<br>
+      默认渲染方式为配置式，不支持自定义的布局，可以通过设置 custom-layout 切换为自定义布局<br>
+      <span class="red">（注：重置功能只对配置 item-render 的项有效）</span>
+    </p>
+
+    <vhb-form :data="formData1" @submit="searchEvent" @reset="resetEvent">
+      <vhb-form-item title="名称" field="name" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-input v-model="data.name" placeholder="请输入名称" clearable></vhb-input>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item title="昵称" field="nickname" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-input v-model="data.nickname" placeholder="请输入昵称"></vhb-input>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item title="性别" field="sex" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-select v-model="data.sex" placeholder="请选择性别" clearable>
+            <vhb-option value="1" label="女"></vhb-option>
+            <vhb-option value="2" label="男"></vhb-option>
+          </vhb-select>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item>
+        <template #default>
+          <vhb-button type="submit" status="primary">默认尺寸</vhb-button>
+        </template>
+      </vhb-form-item>
+    </vhb-form>
+    <vhb-form :data="formData1" @submit="searchEvent" @reset="resetEvent" size="medium">
+      <vhb-form-item title="名称" field="name" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-input v-model="data.name" placeholder="请输入名称" clearable></vhb-input>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item title="昵称" field="nickname" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-input v-model="data.nickname" placeholder="请输入昵称" clearable></vhb-input>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item title="性别" field="sex" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-select v-model="data.sex" placeholder="请选择性别" clearable>
+            <vhb-option value="1" label="女"></vhb-option>
+            <vhb-option value="2" label="男"></vhb-option>
+          </vhb-select>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item>
+        <template #default>
+          <vhb-button type="submit" status="primary">中等尺寸</vhb-button>
+        </template>
+      </vhb-form-item>
+    </vhb-form>
+    <vhb-form :data="formData1" @submit="searchEvent" @reset="resetEvent" size="small">
+      <vhb-form-item title="名称" field="name" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-input v-model="data.name" placeholder="请输入名称" clearable></vhb-input>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item title="昵称" field="nickname" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-input v-model="data.nickname" placeholder="请输入昵称" clearable></vhb-input>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item title="性别" field="sex" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-select v-model="data.sex" placeholder="请选择性别" clearable>
+            <vhb-option value="1" label="女"></vhb-option>
+            <vhb-option value="2" label="男"></vhb-option>
+          </vhb-select>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item>
+        <template #default>
+          <vhb-button type="submit" status="primary">小型尺寸</vhb-button>
+        </template>
+      </vhb-form-item>
+    </vhb-form>
+    <vhb-form :data="formData1" @submit="searchEvent" @reset="resetEvent" size="mini">
+      <vhb-form-item title="名称" field="name" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-input v-model="data.name" placeholder="请输入名称" clearable></vhb-input>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item title="昵称" field="nickname" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-input v-model="data.nickname" placeholder="请输入昵称" clearable></vhb-input>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item title="性别" field="sex" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-select v-model="data.sex" placeholder="请选择性别" clearable>
+            <vhb-option value="1" label="女"></vhb-option>
+            <vhb-option value="2" label="男"></vhb-option>
+          </vhb-select>
+        </template>
+      </vhb-form-item>
+      <vhb-form-item>
+        <template #default>
+          <vhb-button type="submit" status="primary">超小尺寸</vhb-button>
+        </template>
+      </vhb-form-item>
+    </vhb-form>
+
+    <p class="demo-code">{{ $t('app.body.button.showCode') }}</p>
+
+    <pre>
+      <pre-code class="html">{{ demoCodes[0] }}</pre-code>
+      <pre-code class="javascript">{{ demoCodes[1] }}</pre-code>
+    </pre>
+
+    <p class="tip">表单校验</p>
+
+    <vhb-form
+      title-colon
+      ref="xForm"
+      title-align="right"
+      title-width="100"
+      :data="formData2"
+      :rules="formRules2"
+      :loading="loading2"
+      @submit="submitEvent2"
+      @reset="resetEvent">
+      <vhb-form-gather span="12">
+        <vhb-form-item title="名称" field="name" span="24"></vhb-form-item>
+        <vhb-form-item title="昵称" span="24">
+          <template #title>
+            <span style="color: red;">自定义标题</span>
+          </template>
+          <template #default="{ data }">
+            <span>自定义 {{ data.nickname }}</span>
+          </template>
+        </vhb-form-item>
+        <vhb-form-item title="标题貌似有点长呢" field="sex" span="24" :item-render="{}" title-overflow>
+          <template #default="params">
+            <vhb-select v-model="params.data.sex" placeholder="请选择性别" clearable @change="$refs.xForm.updateStatus(params)">
+              <vhb-option value="1" label="女"></vhb-option>
+              <vhb-option value="2" label="男"></vhb-option>
+            </vhb-select>
+          </template>
+        </vhb-form-item>
+        <vhb-form-item title="标题貌似有点长呢" field="age" span="24" :item-render="{}" title-overflow="title">
+          <template #default="params">
+            <vhb-input v-model="params.data.age" type="integer" placeholder="请输入年龄" clearable @input="$refs.xForm.updateStatus(params)"></vhb-input>
+          </template>
+        </vhb-form-item>
+        <vhb-form-item title="标题貌似有点长呢" field="date" span="24" :item-render="{}" title-overflow="ellipsis">
+          <template #default="params">
+            <vhb-input v-model="params.data.date" type="date" placeholder="请选择日期" clearable @change="$refs.xForm.updateStatus(params)"></vhb-input>
+          </template>
+        </vhb-form-item>
+      </vhb-form-gather>
+      <vhb-form-gather span="12">
+        <vhb-form-item title="标题貌似有点长呢标题貌似有点长呢" field="address" span="24" :item-render="{}">
+          <template #default="params">
+            <vhb-textarea v-model="params.data.address" placeholder="请输入地址" :autosize="{minRows: 6, maxRows: 10}" clearable @input="$refs.xForm.updateStatus(params)"></vhb-textarea>
+          </template>
+        </vhb-form-item>
+      </vhb-form-gather>
+      <vhb-form-item align="center" span="24" :item-render="{}">
+        <template #default>
+          <vhb-button type="submit" status="primary">基本表单</vhb-button>
+          <vhb-button type="reset">重置</vhb-button>
+        </template>
+      </vhb-form-item>
+    </vhb-form>
+
+    <p class="demo-code">{{ $t('app.body.button.showCode') }}</p>
+
+    <pre>
+      <pre-code class="html">{{ demoCodes[2] }}</pre-code>
+      <pre-code class="javascript">{{ demoCodes[3] }}</pre-code>
+    </pre>
+
+    <p class="tip">默认渲染方式为配置式，不支持自定义的布局，可以通过设置 custom-layout 切换为自定义布局</p>
+
+    <vhb-form :collapseStatus.sync="collapseStatus3" :data="formData3" :rules="formRules3" title-align="right" title-width="100" prevent-submit title-colon custom-layout>
+      <div style="color: red;">使用自定义布局</div>
+      <vhb-form-item title="名称" field="name" :item-render="{}">
+        <template #default="{ data }">
+          <vhb-input v-model="data.name" placeholder="请输入名称" clearable></vhb-input>
+        </template>
+      </vhb-form-item>
+      <div style="border: 1px dashed green;padding: 10px;">
+        <vhb-form-item title="昵称" field="nickname" :item-render="{}" :title-prefix="{ message: '左边图标', icon: 'fa fa-exclamation-circle' }">
+          <template #default="{ data }">
+            <vhb-input v-model="data.nickname" placeholder="请输入昵称" clearable></vhb-input>
+          </template>
+        </vhb-form-item>
+        <vhb-form-item title="性别" field="sex" :item-render="{}" :title-prefix="{ message: '左边图标', icon: 'fa fa-thumbs-up' }" :title-suffix="{ message: '右边图标', icon: 'fa fa-mars-stroke' }">
+          <template #title>
+            <span style="color: red;">标题</span>
+          </template>
+          <template #default="{ data }">
+            <vhb-select v-model="data.sex" placeholder="请选择性别" clearable>
+              <vhb-option value="1" label="女"></vhb-option>
+              <vhb-option value="2" label="男"></vhb-option>
+            </vhb-select>
+          </template>
+        </vhb-form-item>
+        <vhb-form-item title="年龄" field="age" :item-render="{}" :title-suffix="{ message: '右边图标', icon: 'fa fa-info-circle' }">
+          <template #default="{ data }">
+            <vhb-input v-model="data.age" type="integer" placeholder="请输入年龄" clearable></vhb-input>
+          </template>
+        </vhb-form-item>
+        <vhb-form-item title="是否禁用" field="active" :item-render="{}">
+          <template #default="{ data }">
+            <vhb-switch v-model="data.active" open-label="是" close-label="否"></vhb-switch>
+          </template>
+        </vhb-form-item>
+        <div>
+          <vhb-checkbox v-model="collapseStatus3" content="查看更多" :checked-value="false" :unchecked-value="true"></vhb-checkbox>
+        </div>
+        <vhb-form-item title="日期" field="date" :item-render="{}" folding>
+          <template #default="{ data }">
+            <vhb-input v-model="data.date" type="date" placeholder="请选择日期" clearable></vhb-input>
+          </template>
+        </vhb-form-item>
+        <vhb-form-item title="兴趣爱好" field="flagList" :item-render="{}" folding>
+          <template #default="{ data }">
+            <vhb-checkbox-group v-model="data.flagList">
+              <vhb-checkbox label="1" content="爬山"></vhb-checkbox>
+              <vhb-checkbox label="2" content="跑步"></vhb-checkbox>
+              <vhb-checkbox label="3" content="听歌"></vhb-checkbox>
+            </vhb-checkbox-group>
+          </template>
+        </vhb-form-item>
+        <div>
+          <vhb-form-item align="center" collapse-node>
+            <template #default>
+              <vhb-button status="primary" content="手动提交方式" @click="searchEvent"></vhb-button>
+              <vhb-button content="重置" @click="resetEvent"></vhb-button>
+            </template>
+          </vhb-form-item>
+        </div>
+      </div>
+    </vhb-form>
+
+    <p class="demo-code">{{ $t('app.body.button.showCode') }}</p>
+
+    <pre>
+      <pre-code class="html">{{ demoCodes[4] }}</pre-code>
+      <pre-code class="javascript">{{ demoCodes[5] }}</pre-code>
+    </pre>
+
+    <p class="tip">配置式表单</p>
+
+    <vhb-form :data="formData4" :items="formItems4">
+      <template #myregion="{ data }">
+        <vhb-input v-model="data.region" placeholder="自定义插槽模板"></vhb-input>
+      </template>
+    </vhb-form>
+
+    <p class="demo-code">{{ $t('app.body.button.showCode') }}</p>
+
+    <pre>
+      <pre-code class="html">{{ demoCodes[6] }}</pre-code>
+      <pre-code class="javascript">{{ demoCodes[7] }}</pre-code>
+    </pre>
+
+    <pre>
+      <pre-code>
+        | Tab | 切换到上一个 |
+        | Shift Tab | 切换到下一个 |
+        | Enter | （prevent-submit 不为 false）如果有存在提交按钮则提交表单 |
+      </pre-code>
+    </pre>
+  </div>
+</template>
+
+<script>
+import VHBTable from 'vhb-table'
+
+export default {
+  data  () {
+    return {
+      formData1: {
+        name: '',
+        nickname: '',
+        sex: '1'
+      },
+      loading2: false,
+      formData2: {
+        name: 'test1',
+        nickname: 'Testing',
+        sex: '',
+        age: 26,
+        date: null,
+        address: '左右布局'
+      },
+      formRules2: {
+        name: [
+          { required: true, message: '请输入名称' },
+          { min: 3, max: 5, message: '长度在 3 到 5 个字符' }
+        ],
+        nickname: [
+          { required: true, message: '请输入昵称' }
+        ],
+        sex: [
+          { required: true, message: '请选择性别' }
+        ],
+        age: [
+          { required: true, message: '请输入年龄' },
+          {
+            validator ({ itemValue }) {
+              // 自定义校验
+              if (Number(itemValue) > 35 || Number(itemValue) < 18) {
+                return new Error('年龄在 18 ~ 35 之间')
+              }
+            }
+          }
+        ],
+        date: [
+          { required: true, message: '必填校验' }
+        ],
+        address: [
+          { required: true, message: '必填校验' }
+        ]
+      },
+      collapseStatus3: true,
+      formData3: {
+        name: '',
+        nickname: '',
+        sex: '',
+        age: 30,
+        status: '1',
+        weight: null,
+        date: null,
+        active: false,
+        single: '1',
+        flagList: []
+      },
+      formRules3: {
+        name: [
+          { required: true, message: '请输入' }
+        ],
+        nickname: [
+          { required: true, message: '请输入' }
+        ]
+      },
+      formData4: {
+        name: '',
+        nickname: '',
+        sex: '0',
+        role: '',
+        age: 22,
+        val1: [],
+        val2: false,
+        val3: '',
+        flag: false
+      },
+      formItems4: [
+        {
+          title: '左侧',
+          span: 12,
+          children: [
+            { field: 'name', title: '名称', span: 8, itemRender: { name: '$input', props: { placeholder: '请输入名称' } } },
+            { field: 'sex', title: '性别', span: 8, itemRender: { name: '$select', options: [{ value: '0', label: '女' }, { value: '1', label: '男' }], props: { placeholder: '请选择性别' } } },
+            { field: 'role', title: '角色', span: 8, itemRender: { name: '$input', props: { placeholder: '请输入角色' } } },
+            { field: 'age', title: '年龄', span: 24, itemRender: { name: '$input', props: { type: 'number', placeholder: '请输入年龄' } } },
+            { field: 'val1', title: '复选框-组', span: 12, itemRender: { name: '$checkbox', options: [{ label: '爬山', value: '11' }, { label: '健身', value: '22' }] } },
+            { field: 'val2', title: '复选框', span: 12, itemRender: { name: '$checkbox' } },
+            { field: 'val3', title: '单选框', span: 12, itemRender: { name: '$radio', options: [{ label: '是', value: 'Y' }, { label: '否', value: 'N' }] } },
+            { field: 'flag', title: '开关', span: 24, itemRender: { name: '$switch', props: { openLabel: '是', closeLabel: '否' } } },
+            { field: 'region', title: '地区', span: 24, slots: { default: 'myregion' } }
+          ]
+        },
+        {
+          title: '右侧',
+          span: 12,
+          children: [
+            { field: 'nickname', title: '昵称', span: 24, itemRender: { name: '$input', props: { placeholder: '请输入昵称' } } }
+          ]
+        },
+        { align: 'center', span: 24, itemRender: { name: '$buttons', children: [{ props: { type: 'submit', content: '配置式表单', status: 'primary' } }, { props: { type: 'reset', content: '重置' } }] } }
+      ],
+      demoCodes: [
+        `
+        <vhb-form :data="formData1" @submit="searchEvent" @reset="resetEvent">
+          <vhb-form-item title="名称" field="name" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-input v-model="data.name" placeholder="请输入名称" clearable></vhb-input>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item title="昵称" field="nickname" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-input v-model="data.nickname" placeholder="请输入昵称"></vhb-input>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item title="性别" field="sex" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-select v-model="data.sex" placeholder="请选择性别" clearable>
+                <vhb-option value="1" label="女"></vhb-option>
+                <vhb-option value="2" label="男"></vhb-option>
+              </vhb-select>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item>
+            <template #default>
+              <vhb-button type="submit" status="primary">默认尺寸</vhb-button>
+            </template>
+          </vhb-form-item>
+        </vhb-form>
+        <vhb-form :data="formData1" @submit="searchEvent" @reset="resetEvent" size="medium">
+          <vhb-form-item title="名称" field="name" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-input v-model="data.name" placeholder="请输入名称" clearable></vhb-input>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item title="昵称" field="nickname" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-input v-model="data.nickname" placeholder="请输入昵称" clearable></vhb-input>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item title="性别" field="sex" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-select v-model="data.sex" placeholder="请选择性别" clearable>
+                <vhb-option value="1" label="女"></vhb-option>
+                <vhb-option value="2" label="男"></vhb-option>
+              </vhb-select>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item>
+            <template #default>
+              <vhb-button type="submit" status="primary">中等尺寸</vhb-button>
+            </template>
+          </vhb-form-item>
+        </vhb-form>
+        <vhb-form :data="formData1" @submit="searchEvent" @reset="resetEvent" size="small">
+          <vhb-form-item title="名称" field="name" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-input v-model="data.name" placeholder="请输入名称" clearable></vhb-input>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item title="昵称" field="nickname" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-input v-model="data.nickname" placeholder="请输入昵称" clearable></vhb-input>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item title="性别" field="sex" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-select v-model="data.sex" placeholder="请选择性别" clearable>
+                <vhb-option value="1" label="女"></vhb-option>
+                <vhb-option value="2" label="男"></vhb-option>
+              </vhb-select>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item>
+            <template #default>
+              <vhb-button type="submit" status="primary">小型尺寸</vhb-button>
+            </template>
+          </vhb-form-item>
+        </vhb-form>
+        <vhb-form :data="formData1" @submit="searchEvent" @reset="resetEvent" size="mini">
+          <vhb-form-item title="名称" field="name" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-input v-model="data.name" placeholder="请输入名称" clearable></vhb-input>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item title="昵称" field="nickname" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-input v-model="data.nickname" placeholder="请输入昵称" clearable></vhb-input>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item title="性别" field="sex" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-select v-model="data.sex" placeholder="请选择性别" clearable>
+                <vhb-option value="1" label="女"></vhb-option>
+                <vhb-option value="2" label="男"></vhb-option>
+              </vhb-select>
+            </template>
+          </vhb-form-item>
+          <vhb-form-item>
+            <template #default>
+              <vhb-button type="submit" status="primary">超小尺寸</vhb-button>
+            </template>
+          </vhb-form-item>
+        </vhb-form>
+        `,
+        `
+        export default {
+          data () {
+            return {
+              formData1: {
+                name: '',
+                nickname: '',
+                sex: '1'
+              },
+              loading2: false,
+              formData2: {
+                name: 'test1',
+                nickname: 'Testing',
+                sex: '',
+                age: 26,
+                date: null,
+                address: '左右布局'
+              }
+            }
+          }
+        }
+        `,
+        `
+        <vhb-form
+          title-colon
+          ref="xForm"
+          title-align="right"
+          title-width="100"
+          :data="formData2"
+          :rules="formRules2"
+          :loading="loading2"
+          @submit="submitEvent2"
+          @reset="resetEvent">
+          <vhb-form-gather span="12">
+            <vhb-form-item title="名称" field="name" span="24"></vhb-form-item>
+            <vhb-form-item title="昵称" span="24">
+              <template #title>
+                <span style="color: red;">自定义标题</span>
+              </template>
+              <template #default="{ data }">
+                <span>自定义 {{ data.nickname }}</span>
+              </template>
+            </vhb-form-item>
+            <vhb-form-item title="标题貌似有点长呢" field="sex" span="24" :item-render="{}" title-overflow>
+              <template #default="params">
+                <vhb-select v-model="params.data.sex" placeholder="请选择性别" clearable @change="$refs.xForm.updateStatus(params)">
+                  <vhb-option value="1" label="女"></vhb-option>
+                  <vhb-option value="2" label="男"></vhb-option>
+                </vhb-select>
+              </template>
+            </vhb-form-item>
+            <vhb-form-item title="标题貌似有点长呢" field="age" span="24" :item-render="{}" title-overflow="title">
+              <template #default="params">
+                <vhb-input v-model="params.data.age" type="integer" placeholder="请输入年龄" clearable @input="$refs.xForm.updateStatus(params)"></vhb-input>
+              </template>
+            </vhb-form-item>
+            <vhb-form-item title="标题貌似有点长呢" field="date" span="24" :item-render="{}" title-overflow="ellipsis">
+              <template #default="params">
+                <vhb-input v-model="params.data.date" type="date" placeholder="请选择日期" clearable @change="$refs.xForm.updateStatus(params)"></vhb-input>
+              </template>
+            </vhb-form-item>
+          </vhb-form-gather>
+          <vhb-form-gather span="12">
+            <vhb-form-item title="标题貌似有点长呢标题貌似有点长呢" field="address" span="24" :item-render="{}">
+              <template #default="params">
+                <vhb-textarea v-model="params.data.address" placeholder="请输入地址" :autosize="{minRows: 6, maxRows: 10}" clearable @input="$refs.xForm.updateStatus(params)"></vhb-textarea>
+              </template>
+            </vhb-form-item>
+          </vhb-form-gather>
+          <vhb-form-item align="center" span="24" :item-render="{}">
+            <template #default>
+              <vhb-button type="submit" status="primary">基本表单</vhb-button>
+              <vhb-button type="reset">重置</vhb-button>
+            </template>
+          </vhb-form-item>
+        </vhb-form>
+        `,
+        `
+        import VHBTable from 'vhb-table'
+
+        export default {
+          data () {
+            return {
+              formRules2: {
+                name: [
+                  { required: true, message: '请输入名称' },
+                  { min: 3, max: 5, message: '长度在 3 到 5 个字符' }
+                ],
+                nickname: [
+                  { required: true, message: '请输入昵称' }
+                ],
+                sex: [
+                  { required: true, message: '请选择性别' }
+                ],
+                age: [
+                  { required: true, message: '请输入年龄' },
+                  {
+                    validator ({ itemValue }) {
+                      // 自定义校验
+                      if (Number(itemValue) > 35 || Number(itemValue) < 18) {
+                        return new Error('年龄在 18 ~ 35 之间')
+                      }
+                    }
+                  }
+                ],
+                date: [
+                  { required: true, message: '必填校验' }
+                ],
+                address: [
+                  { required: true, message: '必填校验' }
+                ]
+              }
+            }
+          },
+          methods: {
+            submitEvent2 () {
+              this.loading2 = true
+              setTimeout(() => {
+                this.loading2 = false
+                VHBTable.modal.message({ message: '保存成功', status: 'success' })
+              }, 1000)
+            },
+            searchEvent () {
+              VHBTable.modal.message({ message: '查询事件', status: 'info' })
+            },
+            resetEvent () {
+              VHBTable.modal.message({ message: '重置事件', status: 'info' })
+            }
+          }
+        }
+        `,
+        `
+        <vhb-form :collapseStatus.sync="collapseStatus3" :data="formData3" :rules="formRules3" title-align="right" title-width="100" prevent-submit title-colon custom-layout>
+          <div style="color: red;">使用自定义布局</div>
+          <vhb-form-item title="名称" field="name" :item-render="{}">
+            <template #default="{ data }">
+              <vhb-input v-model="data.name" placeholder="请输入名称" clearable></vhb-input>
+            </template>
+          </vhb-form-item>
+          <div style="border: 1px dashed green;padding: 10px;">
+            <vhb-form-item title="昵称" field="nickname" :item-render="{}" :title-prefix="{ message: '左边图标', icon: 'fa fa-exclamation-circle' }">
+              <template #default="{ data }">
+                <vhb-input v-model="data.nickname" placeholder="请输入昵称" clearable></vhb-input>
+              </template>
+            </vhb-form-item>
+            <vhb-form-item title="性别" field="sex" :item-render="{}" :title-prefix="{ message: '左边图标', icon: 'fa fa-thumbs-up' }" :title-suffix="{ message: '右边图标', icon: 'fa fa-mars-stroke' }">
+              <template #title>
+                <span style="color: red;">标题</span>
+              </template>
+              <template #default="{ data }">
+                <vhb-select v-model="data.sex" placeholder="请选择性别" clearable>
+                  <vhb-option value="1" label="女"></vhb-option>
+                  <vhb-option value="2" label="男"></vhb-option>
+                </vhb-select>
+              </template>
+            </vhb-form-item>
+            <vhb-form-item title="年龄" field="age" :item-render="{}" :title-suffix="{ message: '右边图标', icon: 'fa fa-info-circle' }">
+              <template #default="{ data }">
+                <vhb-input v-model="data.age" type="integer" placeholder="请输入年龄" clearable></vhb-input>
+              </template>
+            </vhb-form-item>
+            <vhb-form-item title="是否禁用" field="active" :item-render="{}">
+              <template #default="{ data }">
+                <vhb-switch v-model="data.active" open-label="是" close-label="否"></vhb-switch>
+              </template>
+            </vhb-form-item>
+            <div>
+              <vhb-checkbox v-model="collapseStatus3" content="查看更多" :checked-value="false" :unchecked-value="true"></vhb-checkbox>
+            </div>
+            <vhb-form-item title="日期" field="date" :item-render="{}" folding>
+              <template #default="{ data }">
+                <vhb-input v-model="data.date" type="date" placeholder="请选择日期" clearable></vhb-input>
+              </template>
+            </vhb-form-item>
+            <vhb-form-item title="兴趣爱好" field="flagList" :item-render="{}" folding>
+              <template #default="{ data }">
+                <vhb-checkbox-group v-model="data.flagList">
+                  <vhb-checkbox label="1" content="爬山"></vhb-checkbox>
+                  <vhb-checkbox label="2" content="跑步"></vhb-checkbox>
+                  <vhb-checkbox label="3" content="听歌"></vhb-checkbox>
+                </vhb-checkbox-group>
+              </template>
+            </vhb-form-item>
+            <div>
+              <vhb-form-item align="center" collapse-node>
+                <template #default>
+                  <vhb-button status="primary" content="手动提交方式" @click="searchEvent"></vhb-button>
+                  <vhb-button content="重置" @click="resetEvent"></vhb-button>
+                </template>
+              </vhb-form-item>
+            </div>
+          </div>
+        </vhb-form>
+        `,
+        `
+        import VHBTable from 'vhb-table'
+
+        export default {
+          data () {
+            return {
+              collapseStatus3: true,
+              formData3: {
+                name: '',
+                nickname: '',
+                sex: '',
+                age: 30,
+                status: '1',
+                weight: null,
+                date: null,
+                active: false,
+                single: '1',
+                flagList: []
+              },
+              formRules3: {
+                name: [
+                  { required: true, message: '请输入' }
+                ],
+                nickname: [
+                  { required: true, message: '请输入' }
+                ]
+              },
+              formData4: {
+                name: '',
+                nickname: '',
+                sex: '0',
+                role: '',
+                age: 22,
+                val1: [],
+                val2: false,
+                val3: '',
+                flag: false
+              }
+            }
+          },
+          methods: {
+            searchEvent () {
+              VHBTable.modal.message({ message: '查询事件', status: 'info' })
+            },
+            resetEvent () {
+              VHBTable.modal.message({ message: '重置事件', status: 'info' })
+            }
+          }
+        }
+        `,
+        `
+        <vhb-form :data="formData4" :items="formItems4">
+          <template #myregion="{ data }">
+            <vhb-input v-model="data.region" placeholder="自定义插槽模板"></vhb-input>
+          </template>
+        </vhb-form>
+        `,
+        `
+        import VHBTable from 'vhb-table'
+
+        export default {
+          data () {
+            return {
+              formData4: {
+                name: '',
+                nickname: '',
+                sex: '0',
+                role: '',
+                age: 22,
+                val1: [],
+                val2: false,
+                val3: '',
+                flag: false
+              },
+              formItems4: [
+                {
+                  title: '左侧',
+                  span: 12,
+                  children: [
+                    { field: 'name', title: '名称', span: 8, itemRender: { name: '$input', props: { placeholder: '请输入名称' } } },
+                    { field: 'sex', title: '性别', span: 8, itemRender: { name: '$select', options: [{ value: '0', label: '女' }, { value: '1', label: '男' }], props: { placeholder: '请选择性别' } } },
+                    { field: 'role', title: '角色', span: 8, itemRender: { name: '$input', props: { placeholder: '请输入角色' } } },
+                    { field: 'age', title: '年龄', span: 24, itemRender: { name: '$input', props: { type: 'number', placeholder: '请输入年龄' } } },
+                    { field: 'val1', title: '复选框-组', span: 12, itemRender: { name: '$checkbox', options: [{ label: '爬山', value: '11' }, { label: '健身', value: '22' }] } },
+                    { field: 'val2', title: '复选框', span: 12, itemRender: { name: '$checkbox' } },
+                    { field: 'val3', title: '单选框', span: 12, itemRender: { name: '$radio', options: [{ label: '是', value: 'Y' }, { label: '否', value: 'N' }] } },
+                    { field: 'flag', title: '开关', span: 24, itemRender: { name: '$switch', props: { openLabel: '是', closeLabel: '否' } } },
+                    { field: 'region', title: '地区', span: 24, slots: { default: 'myregion' } }
+                  ]
+                },
+                {
+                  title: '右侧',
+                  span: 12,
+                  children: [
+                    { field: 'nickname', title: '昵称', span: 24, itemRender: { name: '$input', props: { placeholder: '请输入昵称' } } }
+                  ]
+                },
+                { align: 'center', span: 24, itemRender: { name: '$buttons', children: [{ props: { type: 'submit', content: '配置式表单', status: 'primary' } }, { props: { type: 'reset', content: '重置' } }] } }
+              ]
+            }
+          }
+        }
+      `
+      ]
+    }
+  },
+  methods: {
+    submitEvent2 () {
+      this.loading2 = true
+      setTimeout(() => {
+        this.loading2 = false
+        VHBTable.modal.message({ message: '保存成功', status: 'success' })
+      }, 1000)
+    },
+    searchEvent () {
+      VHBTable.modal.message({ message: '查询事件', status: 'info' })
+    },
+    resetEvent () {
+      VHBTable.modal.message({ message: '重置事件', status: 'info' })
+    }
+  }
+}
+</script>
