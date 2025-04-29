@@ -1,6 +1,5 @@
 .DS_Store
 .history
-docs
 node_modules
 /public/v1
 /public/v2
